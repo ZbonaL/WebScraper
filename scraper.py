@@ -29,6 +29,7 @@ for i in headTables:
         # convert Date to formatable time
       time = re.match(r"[ADFJMNOS]\w* [\d]{1,2}, [\d]{4}",event)
       doubleTime = re.match(r"[ADFJMNOS]\w* [\d]{1,2} to [\d]{1,2}, [\d]{4}", event)
+      doubleDates = re.match(r"[ADFJMNOS]\w* [\d]{1,2} and [\d]{1,2}, [\d]{4}", event)
         
       if time:
         timeVal = dt.strptime(time.group(), "%B %d, %Y")
@@ -43,10 +44,23 @@ for i in headTables:
         endTime = dt.strptime(endDates, "%B %d %Y")
 
         finalDates = ' to '.join([str(startTime), str(endTime)])
-        print(finalDates)
+        # print(finalDates)
         event = re.sub(r"[ADFJMNOS]\w* [\d]{1,2} to [\d]{1,2}, [\d]{4}",str(finalDates), event)
+      elif doubleDates:
+        dates = re.split(r"\ and\ |\ |,\ ", event)
+        startDates = " ".join([dates[0],dates[1],dates[3]])
+        endDates = " ".join([dates[0],dates[2],dates[3]])
+        
+        startTime = dt.strptime(startDates, "%B %d %Y")
+
+        endTime = dt.strptime(endDates, "%B %d %Y")
+
+        finalDates = ' to '.join([str(startTime), str(endTime)])
+        # print(finalDates)
+        event = re.sub(r"[ADFJMNOS]\w* [\d]{1,2} and [\d]{1,2}, [\d]{4}",str(finalDates), event)
 
       list_of_cells.append(event)
+      # print(list_of_cells)
     list_of_rows.append(list_of_cells)
   
 outfile = open("./events.csv", "w")
