@@ -39,13 +39,12 @@ for i in headTables:
         endDates = " ".join([dates[0],dates[2],dates[3]])
         
         startTime = dt.strptime(startDates, "%B %d %Y")
-        # print(startTime)
+
         endTime = dt.strptime(endDates, "%B %d %Y")
-        # print(endTime)
+
         finalDates = ' to '.join([str(startTime), str(endTime)])
         print(finalDates)
         event = re.sub(r"[ADFJMNOS]\w* [\d]{1,2} to [\d]{1,2}, [\d]{4}",str(finalDates), event)
-        # print(event)
 
       list_of_cells.append(event)
     list_of_rows.append(list_of_cells)
