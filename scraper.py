@@ -1,9 +1,11 @@
 from bs4 import BeautifulSoup as soup
 from urllib.request import urlopen as uReq
-import csv
 from datetime import datetime as dt
 import re
 import copy
+
+import MySQLdb
+
 
 url = 'http://calendar.uoit.ca/content.php?catoid=22&navoid=881'
 
@@ -104,23 +106,29 @@ for i in headTables:
     startDate = list_of_cells[0].split('to')
 
     strParts = list_of_cells[1].split('. ')
+
+    dataBase = MySQLdb
     global title, description
     if len(strParts) > 1:
-      title = strParts[0]
-      description = strParts[1]
+      title = str(strParts[0])
+      description = str(strParts[1])
     else:
-      title = strParts[0]
-      description = strParts[0]
+      title= str(strParts[0])
+      description = str(strParts[0])
 
+    newTitle =str(dataBase.escape_string(title))
+    newDesc =str(dataBase.escape_string(description))
+    
+
+    print(newTitle.replace('b',''))
     # print(strParts)
-
-    query = "INSERT INTO tbl_entries ( id, event_name, event_description, event_categories, event_tags, event_startdate, event_enddate, open_to, location_building, location_room, location_campus, location_other, start_hour, start_minute, start_ampm, end_hour, end_minute, end_ampm, contact_event_firstname, contact_event_lastname, contact_event_phonenumber, contact_event_phoneext, contact_event_email, contact_firstname, contact_lastname, contact_phonenumber, contact_phoneext, contact_email, event_url, event_url_protocol, upload_image, date_submitted, date_approved, repeated, repeat_freq, repeat_day, repeat_until, repeat_until_date, repeat_until_num, clickable, pending, approved, archived, cancelled, frontpage, submission_ip)" 
-    values = " VALUES ('', " + title + ", "+ description + " , '0,0,0,0,0,0,0,0,0,0', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + list_of_cells[2] + "', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', 0, '', 0, '', 0, 0, 'am', 11, 59, 'pm', '', '', '', '', '', '', '', '', '', '', 'goridgebacks.com/', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '', '', 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 0, 0, 0, '00.000.0.000');"
+    query = "INSERT INTO tbl_entries ( id, event_name, event_description, event_categories, event_tags, event_startdate, event_enddate, open_to, location_building, location_room, location_campus, location_other, start_hour, start_minute, start_ampm, end_hour, end_minute, end_ampm, contact_event_firstname, contact_event_lastname, contact_event_phonenumber, contact_event_phoneext, contact_event_email, contact_firstname, contact_lastname, contact_phonenumber, contact_phoneext, contact_email, event_url, event_url_protocol, upload_image, date_submitted, date_approved, repeated, repeat_freq, repeat_day, repeat_until, repeat_until_date, repeat_until_num, clickable, pending, approved, archived, cancelled, frontpage, submission_ip)"
+    values = " VALUES ('', " + newTitle.replace('b','') + " ," + newDesc.replace('b','')+ ", '0,0,0,0,0,0,0,0,0,0', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + list_of_cells[2] + "', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', 0, '', 0, '', 0, 0, 'am', 11, 59, 'pm', '', '', '', '', '', '', '', '', '', '', 'goridgebacks.com/', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '', '', 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 0, 0, 0, '00.000.0.000')"
 
     #append to rows
     list_of_rows.append(query + values)
 
-outfile = open("./events2.sql", "w")
+outfile = open("./events2.sql", "w") 
 for item in list_of_rows:
   outfile.write("%s\n" % item)
-outfile.close
+outfile.close 
