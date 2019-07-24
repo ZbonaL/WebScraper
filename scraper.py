@@ -33,17 +33,31 @@ for i in headTables:
 
     # loop through all the td's and get data
     for data in cols:
-      event = data.text
-      
+      event = data.text.replace("\r\n\t\t\t",' ')
+
       # assignment based on regex
       time = re.match(r"[ADFJMNOS]\w* [\d]{1,2}, [\d]{4}",event)
       doubleTime = re.match(r"[ADFJMNOS]\w* [\d]{1,2} to [\d]{1,2}, [\d]{4}", event)
       doubleDates = re.match(r"[ADFJMNOS]\w* [\d]{1,2} and [\d]{1,2}, [\d]{4}", event)
-
+      crossYear = re.match(r"[ADFJMNOS]\w* [\d]{1,2}, [\d]{4} to [ADFJMNOS]\w* [\d]{1,2}, [\d]{4}", event)
+      
       global updateEvent
 
+      if crossYear:
+
+        dates = re.split(r"\ to \ |\ |,\ ",event)
+        # get the start date numbers and join
+        startDates = " ".join([dates[0],dates[1],dates[2]])
+        # get the end date values and join
+        endDates = " ".join([dates[4],dates[5],dates[6]])
+        print(endDates)
+        startTime = dt.strptime(startDates, "%B %d %Y")
+        endTime = dt.strptime(endDates, "%B %d %Y")
+        finalDates = ' to '.join([str(startTime), str(endTime)])
+        event = re.sub(r"[ADFJMNOS]\w* [\d]{1,2}, [\d]{4} to [ADFJMNOS]\w* [\d]{1,2}, [\d]{4}",str(finalDates), event)
+        # print(event)
       # converts Month Day, Year
-      if time:
+      elif time:
         timeVal = dt.strptime(time.group(), "%B %d, %Y")
         # global variable for storage of date value
         updateEvent = timeVal
@@ -89,7 +103,6 @@ for i in headTables:
       list_of_cells.append(event)
 
     newCells = copy.deepcopy(list_of_cells[0])
-    # print(newCells)
 
     toSplit = re.match(r"[\d]{4}-[\d]{1,2}-[\d]{1,2} [\d]{1,2}:[\d]{1,2}:[\d]{1,2} to [\d]{4}-[\d]{1,2}-[\d]{1,2} [\d]{1,2}:[\d]{1,2}:[\d]{1,2}", newCells)
     
@@ -120,7 +133,7 @@ for i in headTables:
     newDesc =str(dataBase.escape_string(description))
 
     query = "INSERT INTO tbl_entries ( id, event_name, event_description, event_categories, event_tags, event_startdate, event_enddate, open_to, location_building, location_room, location_campus, location_other, start_hour, start_minute, start_ampm, end_hour, end_minute, end_ampm, contact_event_firstname, contact_event_lastname, contact_event_phonenumber, contact_event_phoneext, contact_event_email, contact_firstname, contact_lastname, contact_phonenumber, contact_phoneext, contact_email, event_url, event_url_protocol, upload_image, date_submitted, date_approved, repeated, repeat_freq, repeat_day, repeat_until, repeat_until_date, repeat_until_num, clickable, pending, approved, archived, cancelled, frontpage, submission_ip) VALUES "
-    values = " (0, " + newTitle.replace('b','') + " ," + newDesc.replace('b','')+ ", '0,0,0,0,0,0,0,0,0,0', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + list_of_cells[2] + "', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', 0, '', 0, '', 0, 0, 'am', 11, 59, 'pm', '', '', '', '', '', '', '', '', '', '', 'goridgebacks.com/', NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '', '', 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 0, 0, 0, '00.000.0.000'),"
+    values = " (0, " + newTitle.replace('b','') + " ," + newDesc.replace('b','')+ ", '0,0,0,0,0,0,0,0,0,0', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + endTimes + "', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', 0, '', 0, '', 0, 0, 'am', 11, 59, 'pm', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '" + str(dt.now())+ "', '" + str(dt.now()) + "', 0, '', '', 0, '" + str(dt.now()) + "', 0, 0, 0, 0, 0, 0, 0, '00.000.0.000'),"
         
     #append to rows
     list_of_rows.append(values)
@@ -130,7 +143,7 @@ lastString = lastString[:-1] +';'
 # print(lastString)
 list_of_rows.append(lastString)
 
-outfile = open("./events2.sql", "w") 
+outfile = open("./events.sql", "w") 
 outfile.write(query)
 for item in list_of_rows:
   
