@@ -8,6 +8,7 @@ import MySQLdb
 
 userInput1 = str(input("Please Provide with Calendar link: "))
 userInput2 = str(input("Please Provide a file name ending in .sql: "))
+userInput3 = str(input("Please select student type: (Undergrad or Graduate): "))
 
 url = userInput1
 
@@ -133,8 +134,16 @@ for i in headTables:
     newTitle =str(dataBase.escape_string(title))
     newDesc =str(dataBase.escape_string(description))
     
+
     query = "INSERT INTO tbl_entries ( id, event_name, event_description, event_categories, event_tags, event_startdate, event_enddate, open_to, location_building, location_room, location_campus, location_other, start_hour, start_minute, start_ampm, end_hour, end_minute, end_ampm, contact_event_firstname, contact_event_lastname, contact_event_phonenumber, contact_event_phoneext, contact_event_email, contact_firstname, contact_lastname, contact_phonenumber, contact_phoneext, contact_email, event_url, event_url_protocol, upload_image, date_submitted, date_approved, repeated, repeat_freq, repeat_day, repeat_until, repeat_until_date, repeat_until_num, clickable, pending, approved, archived, cancelled, frontpage, submission_ip) VALUES "
-    values = " (0, " + str(newTitle)[1:] + " ," + str(newDesc)[1:]+ ", '0,0,0,0,0,0,0,0,0,0', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + endTimes + "', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', 0, '', 0, '', 0, 0, 'am', 11, 59, 'pm', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '" + str(dt.now())+ "', '" + str(dt.now()) + "', 0, '', '', 0, '" + str(dt.now()) + "', 0, 0, 0, 0, 0, 0, 0, '00.000.0.000'),"
+
+    global values
+    if userInput3 == 'undergrad':
+      values = " (0, " + str(newTitle)[1:] + " ," + str(newDesc)[1:]+ ", '73', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + endTimes + "', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', 0, '', 0, '', 0, 0, 'am', 11, 59, 'pm', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '" + str(dt.now())+ "', '" + str(dt.now()) + "', 0, '', '', 0, '" + str(dt.now()) + "', 0, 0, 0, 0, 0, 0, 0, '00.000.0.000'),"
+
+    elif userInput3 == 'graduate':
+      values = " (0, " + str(newTitle)[1:] + " ," + str(newDesc)[1:]+ ", '74', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + endTimes + "', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', 0, '', 0, '', 0, 0, 'am', 11, 59, 'pm', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '" + str(dt.now())+ "', '" + str(dt.now()) + "', 0, '', '', 0, '" + str(dt.now()) + "', 0, 0, 0, 0, 0, 0, 0, '00.000.0.000'),"
+
         
     #append to rows
     list_of_rows.append(values)
