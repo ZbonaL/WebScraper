@@ -6,8 +6,10 @@ import copy
 
 import MySQLdb
 
+userInput1 = str(input("Please Provide with Calendar link: "))
+userInput2 = str(input("Please Provide a file name ending in .sql: "))
 
-url = 'http://calendar.uoit.ca/content.php?catoid=22&navoid=881'
+url = userInput1
 
 # get data from the link
 client = uReq(url)
@@ -50,7 +52,6 @@ for i in headTables:
         startDates = " ".join([dates[0],dates[1],dates[2]])
         # get the end date values and join
         endDates = " ".join([dates[4],dates[5],dates[6]])
-        print(endDates)
         startTime = dt.strptime(startDates, "%B %d %Y")
         endTime = dt.strptime(endDates, "%B %d %Y")
         finalDates = ' to '.join([str(startTime), str(endTime)])
@@ -143,7 +144,7 @@ lastString = lastString[:-1] +';'
 # print(lastString)
 list_of_rows.append(lastString)
 
-outfile = open("./events.sql", "w") 
+outfile = open(userInput2, "w") 
 outfile.write(query)
 for item in list_of_rows:
   
