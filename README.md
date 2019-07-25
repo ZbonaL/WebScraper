@@ -11,4 +11,8 @@
       6. __MySQLdb -> escaped_string__
       
 ## Functionality
-  
+
+- __Purpose of this script:__
+  - Read the Undergraduate and Graduate event calendar's and convert their data to MSQL queries.
+ - __How To Run__:
+    `python3 scraper.py`
