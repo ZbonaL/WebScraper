@@ -139,10 +139,10 @@ for i in headTables:
 
     global values
     if userInput3 == 'undergrad':
-      values = " (0, " + str(newTitle)[1:] + " ," + str(newDesc)[1:]+ ", '73', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + endTimes + "', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', 0, '', 0, '', 0, 0, 'am', 11, 59, 'pm', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '" + str(dt.now())+ "', '" + str(dt.now()) + "', 0, '', '', 0, '" + str(dt.now()) + "', 0, 0, 0, 0, 0, 0, 0, '00.000.0.000'),"
+      values = "(0, " + str(newTitle)[1:] + " ," + str(newDesc)[1:]+ ", '73', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + endTimes + "', '29', 0, '', 2, 'Ontario Tech', 0, 0, 'am', 11, 59, 'pm', 'Registrar\'s', 'Office', '905.721.3190', '', 'connect@uoit.ca', 'Registrar\'s', 'Office', '905.721.3190', '', 'connect@uoit.ca', '" + url + "', 'https', NULL, '" + str(dt.now())+ "', '" + str(dt.now()) + "', 0, '', '', 0, '" + str(dt.now()) + "', 0, 1, 0, 1, 0, 0, 0, '00.000.0.000'),"
 
     elif userInput3 == 'graduate':
-      values = " (0, " + str(newTitle)[1:] + " ," + str(newDesc)[1:]+ ", '74', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + endTimes + "', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', 0, '', 0, '', 0, 0, 'am', 11, 59, 'pm', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, '" + str(dt.now())+ "', '" + str(dt.now()) + "', 0, '', '', 0, '" + str(dt.now()) + "', 0, 0, 0, 0, 0, 0, 0, '00.000.0.000'),"
+      values = "(0, " + str(newTitle)[1:] + " ," + str(newDesc)[1:]+ ", '74', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + endTimes + "', '29', 0, '', 2, 'Ontario Tech', 0, 0, 'am', 11, 59, 'pm', 'Registrar\'s', 'Office', '905.721.3190', '', 'connect@uoit.ca', 'Registrar\'s', 'Office', '905.721.3190', '', 'connect@uoit.ca', '" + url + "', 'https', NULL, '" + str(dt.now())+ "', '" + str(dt.now()) + "', 0, '', '', 0, '" + str(dt.now()) + "', 0, 1, 0, 1, 0, 0, 0, '00.000.0.000'),"
 
         
     #append to rows
