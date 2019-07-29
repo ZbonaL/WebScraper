@@ -3,12 +3,14 @@ from urllib.request import urlopen as uReq
 from datetime import datetime as dt
 import re
 import copy
+import MySQLdb    
 
-import MySQLdb
+dataBase = MySQLdb
+
 
 userInput1 = str(input("Please Provide with Calendar link: "))
 userInput2 = str(input("Please Provide a file name ending in .sql: "))
-userInput3 = str(input("Please select student type: (Undergrad or Graduate): "))
+userInput3 = str(input("Please select student type: (undergrad or graduate): "))
 
 url = userInput1
 
@@ -122,7 +124,6 @@ for i in headTables:
 
     strParts = list_of_cells[1].split('. ')
 
-    dataBase = MySQLdb
     global title, description
     if len(strParts) > 1:
       title = str(strParts[0])
@@ -134,28 +135,26 @@ for i in headTables:
     newTitle =str(dataBase.escape_string(title))
     newDesc =str(dataBase.escape_string(description))
     
+    query = "INSERT INTO tbl_entries ( event_name, event_description, event_categories, event_tags, event_startdate, event_enddate, open_to, location_building, location_room, location_campus, location_other, start_hour, start_minute, start_ampm, end_hour, end_minute, end_ampm, contact_event_firstname, contact_event_lastname, contact_event_phonenumber, contact_event_phoneext, contact_event_email, contact_firstname, contact_lastname, contact_phonenumber, contact_phoneext, contact_email, event_url, event_url_protocol, upload_image, date_submitted, date_approved, repeated, repeat_freq, repeat_day, repeat_until, repeat_until_date, repeat_until_num, clickable, pending, approved, archived, cancelled, frontpage, submission_ip) VALUES "
 
-    query = "INSERT INTO tbl_entries ( id, event_name, event_description, event_categories, event_tags, event_startdate, event_enddate, open_to, location_building, location_room, location_campus, location_other, start_hour, start_minute, start_ampm, end_hour, end_minute, end_ampm, contact_event_firstname, contact_event_lastname, contact_event_phonenumber, contact_event_phoneext, contact_event_email, contact_firstname, contact_lastname, contact_phonenumber, contact_phoneext, contact_email, event_url, event_url_protocol, upload_image, date_submitted, date_approved, repeated, repeat_freq, repeat_day, repeat_until, repeat_until_date, repeat_until_num, clickable, pending, approved, archived, cancelled, frontpage, submission_ip) VALUES "
+    registrars = str(dataBase.escape_string("'Registar's'"))[1:]
 
     global values
     if userInput3 == 'undergrad':
-      values = "(0, " + str(newTitle)[1:] + " ," + str(newDesc)[1:]+ ", '73', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + endTimes + "', '29', 0, '', 2, 'Ontario Tech', 0, 0, 'am', 11, 59, 'pm', 'Registrar\'s', 'Office', '905.721.3190', '', 'connect@uoit.ca', 'Registrar\'s', 'Office', '905.721.3190', '', 'connect@uoit.ca', '" + url + "', 'https', NULL, '" + str(dt.now())+ "', '" + str(dt.now()) + "', 0, '', '', 0, '" + str(dt.now()) + "', 0, 1, 0, 1, 0, 0, 0, '00.000.0.000'),"
+      values = "(" + str(newTitle)[1:] + " ," + str(newDesc)[1:]+ ", '73', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + endTimes + "', '29', 0, '', 2, 'Ontario Tech', 0, 0, 'am', 11, 59, 'pm', "+ registrars +", 'Office', '905.721.3190', '', 'connect@uoit.ca', " + registrars + ", 'Office', '905.721.3190', '', 'connect@uoit.ca', '" + url + "', 'https', NULL, '" + str(dt.now())+ "', '" + str(dt.now()) + "', 0, '', '', 0, '" + str(dt.now()) + "', 0, 1, 0, 1, 0, 0, 0, '00.000.0.000'),"
 
     elif userInput3 == 'graduate':
-      values = "(0, " + str(newTitle)[1:] + " ," + str(newDesc)[1:]+ ", '74', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + endTimes + "', '29', 0, '', 2, 'Ontario Tech', 0, 0, 'am', 11, 59, 'pm', 'Registrar\'s', 'Office', '905.721.3190', '', 'connect@uoit.ca', 'Registrar\'s', 'Office', '905.721.3190', '', 'connect@uoit.ca', '" + url + "', 'https', NULL, '" + str(dt.now())+ "', '" + str(dt.now()) + "', 0, '', '', 0, '" + str(dt.now()) + "', 0, 1, 0, 1, 0, 0, 0, '00.000.0.000'),"
+      values = "(" + str(newTitle)[1:] + " ," + str(newDesc)[1:]+ ", '74', '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0', '"+ startDate[0] + "','" + endTimes + "', '29', 0, '', 2, 'Ontario Tech', 0, 0, 'am', 11, 59, 'pm','School of Graduate', 'and Postdoctoral Studies', '905.721.8668', '6209', 'connect@uoit.ca', 'School of Graduate', 'and Postdoctoral Studies', '905.721.8668', '6209','connect@uoit.ca', '" + url + "', 'https', NULL, '" + str(dt.now())+ "', '" + str(dt.now()) + "', 0, '', '', 0, '" + str(dt.now()) + "', 0, 1, 0, 1, 0, 0, 0, '00.000.0.000'),"
 
-        
     #append to rows
     list_of_rows.append(values)
 
-lastString = str(list_of_rows.pop(68))
+lastString = str(list_of_rows.pop(len(list_of_rows)-1))
 lastString = lastString[:-1] +';'
-# print(lastString)
 list_of_rows.append(lastString)
 
 outfile = open(userInput2, "w") 
 outfile.write(query)
 for item in list_of_rows:
-  
   outfile.write("%s\n" % item)
 outfile.close 
