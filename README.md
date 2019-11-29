@@ -1,18 +1,19 @@
-# Ontario Tech University Web Scraper
+# Ontario Tech University Web Scrapers
 
-## Requirements:
-  * __Python3:__
-    * __Packages required:__ 
-      1. __bs4 -> BeautifulSoup__
-      2. __urllib.request -> urlopen__
-      3. __dateime -> datetime__
-      4. __re (regex functions)__
-      5. __copy (for deepcopy)__
-      6. __MySQLdb -> escaped_string__
-      
-## Functionality
 
-- __Purpose of this script:__
-  - Read the Undergraduate and Graduate event calendar's and convert their data to MSQL queries.
- - __How To Run__:
-    `python3 scraper.py`
+
+## Repository Contents:
+
+### Web Scrapers:
+    1. Important Dates Scraper:
+        - Used for parsing and creating MySQL queries from the Important Dates page.
+        - Link to Important Dates page: https://bit.ly/37RmY4m
+        
+    2. Accordion Parser:
+        - This scraper is used parse any FAQ's that use Accordion's.
+        - Example of Accordion page: https://bit.ly/33xnEsD
+     
+    3. Strong Tags Parser:
+        - This scraper parses pages that have information in `<strong></strong>` tags. 
+        - Example of page with strong tags: https://bit.ly/2OALU8Z
+        
