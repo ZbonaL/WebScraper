@@ -9,7 +9,10 @@
         - ___bs4___: For the package BeautifulSoup which parses web pages.
         - ___urllib.request___: For the urlopen package to open links to the pages that need to be parsed.
    3. __Special Import Case__:
-       - 
+       - ___MySQLdb___: for the important dates parser, helps with escaped strings.
+       - ___re___: used for regex matching.
+       - ___copy___: used to copy and manipulate data.
+       - ___datetime___: used to convert to datetime.
        
 ### Web Scrapers:
    1. __Important Dates Scraper__:

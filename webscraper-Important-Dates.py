@@ -22,7 +22,7 @@ client.close()
 html = soup(pageHtml, "html.parser")
 
 header = html.h2
-headTables= header.find_next_siblings("table")
+headTables = header.find_next_siblings("table")
 
 list_of_rows = []
 
