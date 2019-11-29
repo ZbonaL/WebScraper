@@ -7,7 +7,6 @@ import MySQLdb
 
 dataBase = MySQLdb
 
-
 userInput1 = str(input("Please Provide with Calendar link: "))
 userInput2 = str(input("Please Provide a file name ending in .sql: "))
 userInput3 = str(input("Please select student type: (undergrad or graduate): "))
@@ -31,7 +30,7 @@ list_of_rows = []
 for i in headTables:
   rows = i.find_all("tr")
 
-  # loop through all the tr's and find td's
+# loop through all the tr's and find td's
   for j in rows:
     list_of_cells = []
     cols = j.find_all("td")

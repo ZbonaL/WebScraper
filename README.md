@@ -1,16 +1,16 @@
 # Ontario Tech University Web Scrapers
 
-
-
 ## Repository Contents:
 
 ### Requirements:
-   1. Pyhton3.
-   2. Python3 Libraries:
-        - Pandas: For creating data frames.
-        - bs4: For the package BeautifulSoup which parses web pages.
-        - urllib.request: For the urlopen package to open links to the pages that need to be parsed.
-        
+   1. __Python3__.
+   2. __Python3 Libraries__:
+        - ___Pandas___: For creating data frames.
+        - ___bs4___: For the package BeautifulSoup which parses web pages.
+        - ___urllib.request___: For the urlopen package to open links to the pages that need to be parsed.
+   3. __Special Import Case__:
+       - 
+       
 ### Web Scrapers:
    1. __Important Dates Scraper__:
         - Used for parsing and creating MySQL queries from the Important Dates page.
