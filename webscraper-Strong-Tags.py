@@ -3,7 +3,7 @@ from urllib.request import urlopen as uReq
 import pandas as pd
 
 # url for web page to be parsed
-url = "https://ontariotechu.ca/campus-services/safety-security/faqs-helpful-links/frequently-asked-questions.php"
+url = "specific url to be parsed"
 
 # open connection to webpage and read the html
 client = uReq(url)
